@@ -2,6 +2,7 @@ package com.example.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 
 /**
  * 书籍表
- * 
+ * <p>
  * book
  *
  * @mbg.generated
@@ -20,7 +21,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Book implements Serializable {
     /**
-     *
      * book.id
      *
      * @mbg.generated
@@ -29,7 +29,7 @@ public class Book implements Serializable {
 
     /**
      * isbn
-     *
+     * <p>
      * book.isbn
      *
      * @mbg.generated
@@ -38,7 +38,7 @@ public class Book implements Serializable {
 
     /**
      * 书名
-     *
+     * <p>
      * book.title
      *
      * @mbg.generated
@@ -47,7 +47,7 @@ public class Book implements Serializable {
 
     /**
      * 作者
-     *
+     * <p>
      * book.author
      *
      * @mbg.generated
@@ -56,7 +56,7 @@ public class Book implements Serializable {
 
     /**
      * 定价
-     *
+     * <p>
      * book.price
      *
      * @mbg.generated
@@ -65,7 +65,7 @@ public class Book implements Serializable {
 
     /**
      * 出版时间
-     *
+     * <p>
      * book.publish_date
      *
      * @mbg.generated

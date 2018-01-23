@@ -24,130 +24,130 @@ import org.mybatis.generator.internal.util.StringUtility;
  * @see DefaultCommentGenerator#addRemarkComments
  */
 public class RemarksCommentGenerator extends DefaultCommentGenerator {
-	private Properties properties = new Properties();
-	private boolean suppressDate = false;
-	private boolean suppressAllComments = false;
+    private Properties properties = new Properties();
+    private boolean suppressDate = false;
+    private boolean suppressAllComments = false;
 
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-	public void addConfigurationProperties(Properties properties) {
-		this.properties.putAll(properties);
-		this.suppressDate = StringUtility.isTrue(properties.getProperty("suppressDate"));
-		this.suppressAllComments = StringUtility.isTrue(properties.getProperty("suppressAllComments"));
-	}
+    public void addConfigurationProperties(Properties properties) {
+        this.properties.putAll(properties);
+        this.suppressDate = StringUtility.isTrue(properties.getProperty("suppressDate"));
+        this.suppressAllComments = StringUtility.isTrue(properties.getProperty("suppressAllComments"));
+    }
 
-	public void addComment(XmlElement xmlElement) {
-		if (this.suppressAllComments) return;
+    public void addComment(XmlElement xmlElement) {
+        if (this.suppressAllComments) return;
 
-		String dateStr = this.getDateString();
-		StringBuilder sb = new StringBuilder();
-		sb.append("<!-- ");
-		sb.append(MergeConstants.NEW_ELEMENT_TAG);
-		if (dateStr != null) {
-			sb.append(" ");
-			sb.append(dateStr);
-		}
-		sb.append(" -->");
-		xmlElement.addElement(new TextElement(sb.toString()));
-	}
+        String dateStr = this.getDateString();
+        StringBuilder sb = new StringBuilder();
+        sb.append("<!-- ");
+        sb.append(MergeConstants.NEW_ELEMENT_TAG);
+        if (dateStr != null) {
+            sb.append(" ");
+            sb.append(dateStr);
+        }
+        sb.append(" -->");
+        xmlElement.addElement(new TextElement(sb.toString()));
+    }
 
-	@Override
-	public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
-		if (this.suppressAllComments) return;
+    @Override
+    public void addModelClassComment(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        if (this.suppressAllComments) return;
 
-		topLevelClass.addJavaDocLine("/**");
+        topLevelClass.addJavaDocLine("/**");
 
-		String remarks = introspectedTable.getRemarks();
-		if (StringUtility.stringHasValue(remarks)) {
-			String[] remarkLines = remarks.split(System.getProperty("line.separator"));  //$NON-NLS-1$
-			for (String remarkLine : remarkLines) {
-				topLevelClass.addJavaDocLine(" * " + remarkLine);
-			}
-		}
+        String remarks = introspectedTable.getRemarks();
+        if (StringUtility.stringHasValue(remarks)) {
+            String[] remarkLines = remarks.split(System.getProperty("line.separator"));  //$NON-NLS-1$
+            for (String remarkLine : remarkLines) {
+                topLevelClass.addJavaDocLine(" * " + remarkLine);
+            }
+        }
 
-		topLevelClass.addJavaDocLine(" * ");
-		topLevelClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable());
-		topLevelClass.addJavaDocLine(" *");
-		addJavadocTag(topLevelClass, false);
-		topLevelClass.addJavaDocLine(" */");
-	}
+        topLevelClass.addJavaDocLine(" * ");
+        topLevelClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable());
+        topLevelClass.addJavaDocLine(" *");
+        addJavadocTag(topLevelClass, false);
+        topLevelClass.addJavaDocLine(" */");
+    }
 
-	public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-		if (this.suppressAllComments) return;
+    public void addFieldComment(Field field, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+        if (this.suppressAllComments) return;
 
-		field.addJavaDocLine("/**");
+        field.addJavaDocLine("/**");
 
-		String remarks = introspectedColumn.getRemarks();
-		if (StringUtility.stringHasValue(remarks)) {
-			String[] remarkLines = remarks.split(System.getProperty("line.separator"));  //$NON-NLS-1$
-			for (String remarkLine : remarkLines) {
-				field.addJavaDocLine(" * " + remarkLine);
-			}
-		}
+        String remarks = introspectedColumn.getRemarks();
+        if (StringUtility.stringHasValue(remarks)) {
+            String[] remarkLines = remarks.split(System.getProperty("line.separator"));  //$NON-NLS-1$
+            for (String remarkLine : remarkLines) {
+                field.addJavaDocLine(" * " + remarkLine);
+            }
+        }
 
-		field.addJavaDocLine(" *");
-		field.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable() + '.' + introspectedColumn.getActualColumnName());
-		field.addJavaDocLine(" *");
-		addJavadocTag(field, false);
-		field.addJavaDocLine(" */");
-	}
+        field.addJavaDocLine(" *");
+        field.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable() + '.' + introspectedColumn.getActualColumnName());
+        field.addJavaDocLine(" *");
+        addJavadocTag(field, false);
+        field.addJavaDocLine(" */");
+    }
 
-	public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
-		if (this.suppressAllComments) return;
+    public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
+        if (this.suppressAllComments) return;
 
-		field.addJavaDocLine("/**");
-		addJavadocTag(field, false);
-		field.addJavaDocLine(" */");
-	}
+        field.addJavaDocLine("/**");
+        addJavadocTag(field, false);
+        field.addJavaDocLine(" */");
+    }
 
-	public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
-		if (this.suppressAllComments) return;
+    public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
+        if (this.suppressAllComments) return;
 
-		method.addJavaDocLine("/**");
-		addJavadocTag(method, false);
-		method.addJavaDocLine(" */");
-	}
+        method.addJavaDocLine("/**");
+        addJavadocTag(method, false);
+        method.addJavaDocLine(" */");
+    }
 
-	public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-		if (this.suppressAllComments) return;
+    public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+        if (this.suppressAllComments) return;
 
-		method.addJavaDocLine("/**");
-		addJavadocTag(method, false);
-		method.addJavaDocLine(" */");
-	}
+        method.addJavaDocLine("/**");
+        addJavadocTag(method, false);
+        method.addJavaDocLine(" */");
+    }
 
-	public void addSetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
-		if (this.suppressAllComments) return;
+    public void addSetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
+        if (this.suppressAllComments) return;
 
-		method.addJavaDocLine("/**");
-		addJavadocTag(method, false);
-		method.addJavaDocLine(" */");
-	}
+        method.addJavaDocLine("/**");
+        addJavadocTag(method, false);
+        method.addJavaDocLine(" */");
+    }
 
-	protected void addJavadocTag(JavaElement javaElement, boolean markAsDoNotDelete) {
-		String dateStr = this.getDateString();
-		javaElement.addJavaDocLine(" * " + MergeConstants.NEW_ELEMENT_TAG + (dateStr == null ? "" : ' ' + dateStr));
-	}
+    protected void addJavadocTag(JavaElement javaElement, boolean markAsDoNotDelete) {
+        String dateStr = this.getDateString();
+        javaElement.addJavaDocLine(" * " + MergeConstants.NEW_ELEMENT_TAG + (dateStr == null ? "" : ' ' + dateStr));
+    }
 
-	public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
-		if (this.suppressAllComments) return;
+    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable) {
+        if (this.suppressAllComments) return;
 
-		innerClass.addJavaDocLine("/**");
+        innerClass.addJavaDocLine("/**");
 //		innerClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable());
-		addJavadocTag(innerClass, false);
-		innerClass.addJavaDocLine(" */");
-	}
+        addJavadocTag(innerClass, false);
+        innerClass.addJavaDocLine(" */");
+    }
 
-	public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
-		if (this.suppressAllComments) return;
+    public void addClassComment(InnerClass innerClass, IntrospectedTable introspectedTable, boolean markAsDoNotDelete) {
+        if (this.suppressAllComments) return;
 
-		innerClass.addJavaDocLine("/**");
-		addJavadocTag(innerClass, markAsDoNotDelete);
-		innerClass.addJavaDocLine(" */");
-	}
+        innerClass.addJavaDocLine("/**");
+        addJavadocTag(innerClass, markAsDoNotDelete);
+        innerClass.addJavaDocLine(" */");
+    }
 
-	protected String getDateString() {
-		return this.suppressDate ? null : dateFormat.format(new Date());
-	}
+    protected String getDateString() {
+        return this.suppressDate ? null : dateFormat.format(new Date());
+    }
 
 }

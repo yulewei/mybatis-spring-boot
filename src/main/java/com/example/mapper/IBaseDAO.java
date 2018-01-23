@@ -12,25 +12,25 @@ import org.apache.ibatis.annotations.Param;
  */
 public interface IBaseDAO<T, E> {
 
-	long countByExample(E example);
+    long countByExample(E example);
 
-	int deleteByExample(E example);
+    int deleteByExample(E example);
 
-	int deleteByPrimaryKey(Serializable id);
+    int deleteByPrimaryKey(Serializable id);
 
-	int insert(T record);
+    int insert(T record);
 
-	int insertSelective(T record);
+    int insertSelective(T record);
 
-	List<T> selectByExample(E example);
+    List<T> selectByExample(E example);
 
-	T selectByPrimaryKey(Serializable id);
+    T selectByPrimaryKey(Serializable id);
 
-	int updateByExampleSelective(@Param("record") T record, @Param("example") E example);
+    int updateByExampleSelective(@Param("record") T record, @Param("example") E example);
 
-	int updateByExample(@Param("record") T record, @Param("example") E example);
+    int updateByExample(@Param("record") T record, @Param("example") E example);
 
-	int updateByPrimaryKeySelective(T record);
+    int updateByPrimaryKeySelective(T record);
 
-	int updateByPrimaryKey(T record);
+    int updateByPrimaryKey(T record);
 }

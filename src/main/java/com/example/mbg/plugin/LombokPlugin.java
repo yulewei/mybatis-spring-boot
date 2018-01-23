@@ -139,7 +139,7 @@ public class LombokPlugin extends PluginAdapter {
 
         for (Entry<Object, Object> entry : properties.entrySet()) {
             boolean isEnable = Boolean.parseBoolean(entry.getValue().toString());
-            
+
             if (isEnable) {
                 String paramName = entry.getKey().toString().trim();
                 Annotations annotation = Annotations.getValueOf(paramName);
@@ -167,11 +167,9 @@ public class LombokPlugin extends PluginAdapter {
         NO_ARGS_CONSTRUCTOR("noArgsConstructor", "@NoArgsConstructor", "lombok.NoArgsConstructor"),
         TO_STRING("toString", "@ToString", "lombok.ToString");
 
-
         private final String paramName;
         private final String name;
         private final FullyQualifiedJavaType javaType;
-
 
         Annotations(String paramName, String name, String className) {
             this.paramName = paramName;

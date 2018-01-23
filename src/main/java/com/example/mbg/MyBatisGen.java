@@ -18,63 +18,63 @@ import org.mybatis.generator.internal.util.StringUtility;
  */
 public class MyBatisGen {
 
-	/**
-	 * 生成器的配置文件自行指定，从命令行参数传入
-	 */
-	public static void main(String[] args) throws Exception {
-		String fileName = "src/main/resources/mybatis-generator-config.xml";
-		if (args.length > 0) {
-			// 从命令行参数传入，配置文件名
-			fileName = args[0];
-		}
+    /**
+     * 生成器的配置文件自行指定，从命令行参数传入
+     */
+    public static void main(String[] args) throws Exception {
+        String fileName = "src/main/resources/mybatis-generator-config.xml";
+        if (args.length > 0) {
+            // 从命令行参数传入，配置文件名
+            fileName = args[0];
+        }
 
-		File configFile = new File(fileName);
+        File configFile = new File(fileName);
 
-		// 项目的根目录
-		String curProjectDir = new File(".").getCanonicalPath();
-		if (!configFile.exists()) {
-			curProjectDir = new File("..").getCanonicalPath();
-			configFile = new File(curProjectDir + "/" + fileName);
-		}
+        // 项目的根目录
+        String curProjectDir = new File(".").getCanonicalPath();
+        if (!configFile.exists()) {
+            curProjectDir = new File("..").getCanonicalPath();
+            configFile = new File(curProjectDir + "/" + fileName);
+        }
 
-		List<String> warnings = new ArrayList<String>();
-		boolean overwrite = true;
-		ConfigurationParser cp = new ConfigurationParser(warnings);
-		Configuration config = cp.parseConfiguration(configFile);
+        List<String> warnings = new ArrayList<String>();
+        boolean overwrite = true;
+        ConfigurationParser cp = new ConfigurationParser(warnings);
+        Configuration config = cp.parseConfiguration(configFile);
 
-		// 重写配置文件的配置信息
-		for (Context context : config.getContexts()) {
-			for (TableConfiguration tableConfig : context.getTableConfigurations()) {
-				if (!StringUtility.stringHasValue(tableConfig.getMapperName())) {
-					// 参见 org.mybatis.generator.api.IntrospectedTable#calculateJavaClientAttributes
-					tableConfig.setMapperName("I" + tableConfig.getDomainObjectName() + "DAO");
-				}
-			}
+        // 重写配置文件的配置信息
+        for (Context context : config.getContexts()) {
+            for (TableConfiguration tableConfig : context.getTableConfigurations()) {
+                if (!StringUtility.stringHasValue(tableConfig.getMapperName())) {
+                    // 参见 org.mybatis.generator.api.IntrospectedTable#calculateJavaClientAttributes
+                    tableConfig.setMapperName("I" + tableConfig.getDomainObjectName() + "DAO");
+                }
+            }
 
-			// 若无法通过相对路径找到目标目录，尝试使用绝对路径
-			JavaModelGeneratorConfiguration javaModelGeneratorConfig = context.getJavaModelGeneratorConfiguration();
-			String targetProject = javaModelGeneratorConfig.getTargetProject();
-			if (!new File(targetProject).exists()) {
-				javaModelGeneratorConfig.setTargetProject(curProjectDir + "/" + targetProject);
-			}
-			SqlMapGeneratorConfiguration sqlMapGeneratorConfig = context.getSqlMapGeneratorConfiguration();
-			targetProject = sqlMapGeneratorConfig.getTargetProject();
-			if (!new File(targetProject).exists()) {
-				sqlMapGeneratorConfig.setTargetProject(curProjectDir + "/" + targetProject);
-			}
-			JavaClientGeneratorConfiguration javaClientGeneratorConfig = context.getJavaClientGeneratorConfiguration();
-			targetProject = javaClientGeneratorConfig.getTargetProject();
-			if (!new File(targetProject).exists()) {
-				javaClientGeneratorConfig.setTargetProject(curProjectDir + "/" + targetProject);
-			}
-		}
+            // 若无法通过相对路径找到目标目录，尝试使用绝对路径
+            JavaModelGeneratorConfiguration javaModelGeneratorConfig = context.getJavaModelGeneratorConfiguration();
+            String targetProject = javaModelGeneratorConfig.getTargetProject();
+            if (!new File(targetProject).exists()) {
+                javaModelGeneratorConfig.setTargetProject(curProjectDir + "/" + targetProject);
+            }
+            SqlMapGeneratorConfiguration sqlMapGeneratorConfig = context.getSqlMapGeneratorConfiguration();
+            targetProject = sqlMapGeneratorConfig.getTargetProject();
+            if (!new File(targetProject).exists()) {
+                sqlMapGeneratorConfig.setTargetProject(curProjectDir + "/" + targetProject);
+            }
+            JavaClientGeneratorConfiguration javaClientGeneratorConfig = context.getJavaClientGeneratorConfiguration();
+            targetProject = javaClientGeneratorConfig.getTargetProject();
+            if (!new File(targetProject).exists()) {
+                javaClientGeneratorConfig.setTargetProject(curProjectDir + "/" + targetProject);
+            }
+        }
 
-		DefaultShellCallback callback = new DefaultShellCallback(overwrite);
-		MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
-		myBatisGenerator.generate(null);
+        DefaultShellCallback callback = new DefaultShellCallback(overwrite);
+        MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
+        myBatisGenerator.generate(null);
 
-		for (String waring : warnings) {
-			System.out.println(waring);
-		}
-	}
+        for (String waring : warnings) {
+            System.out.println(waring);
+        }
+    }
 }
