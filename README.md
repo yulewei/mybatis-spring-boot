@@ -28,7 +28,7 @@ spring.datasource.password=123456
 spring.datasource.driver-class-name=com.mysql.jdbc.Driver
 ```
 
-数据库表设计，参见 [schema.sql](https://github.com/yulewei/mybatis-spring-boot/blob/master/src/main/resources/initsql/schema.sql) 和 [data.sql](https://github.com/yulewei/mybatis-spring-boot/blob/master/src/main/resources/initsql/data.sql)
+数据库表设计，参见 [schema.sql](https://github.com/yulewei/mybatis-spring-boot-demo/blob/master/src/main/resources/initsql/schema.sql) 和 [data.sql](https://github.com/yulewei/mybatis-spring-boot-demo/blob/master/src/main/resources/initsql/data.sql)
 
 Spring Boot 启动时，会自动运行这两个 SQL 文件，对应 `application.properties` 中的：
 
