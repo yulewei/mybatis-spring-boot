@@ -2,20 +2,22 @@ MyBatis 与 Spring Boot 结合的 demo 代码，使用 MySQL 数据库
 
 ---
 
-**1. 安装 Spring Boot CLI：**
+**1. 初始化项目脚手架：**
+
+安装 Spring Boot CLI：
 
 ```
 $ brew tap pivotal/tap
 $ brew install springboot
 ```
 
-**2. 初始化项目脚手架：**
+创建项目脚手架：
 
 ```
 $ spring init -dweb,mybatis,mysql  mybatis-spring-boot
 ```
 
-**3. 数据库设置：**
+**2. 数据库设置：**
 
 假设存在 `jdbc:mysql://localhost:3306/testdb`，并且账号 `root`，密码 `123456`
 
@@ -38,11 +40,11 @@ spring.datasource.data=classpath:initsql/data.sql
 ```
 
 
-**4. 添加代码：**
+**3. 添加代码：**
 
 ... 略
 
-**5. 运行项目：**
+**4. 运行项目：**
 
 ```
 $ mvn spring-boot:run
