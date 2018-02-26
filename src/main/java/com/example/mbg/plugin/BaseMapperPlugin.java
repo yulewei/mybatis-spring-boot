@@ -1,10 +1,6 @@
 package com.example.mbg.plugin;
 
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
-import java.io.File;
-import java.util.List;
-
+import com.example.mapper.BaseMapper;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -12,12 +8,15 @@ import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
-import com.example.mapper.IBaseDAO;
+import java.io.File;
+import java.util.List;
+
+import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
  * 生成的 DAO 方法名采用官方写法
  *
- * @see IBaseDAO
+ * @see BaseMapper
  */
 public class BaseMapperPlugin extends PluginAdapter {
 

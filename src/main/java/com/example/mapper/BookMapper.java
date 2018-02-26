@@ -1,10 +1,9 @@
 package com.example.mapper;
 
-import org.apache.ibatis.annotations.Mapper;
-
 import com.example.entity.Book;
 import com.example.entity.criteria.BookExample;
+import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface IBookDAO extends IBaseDAO<Book, BookExample> {
+public interface BookMapper extends BaseMapper<Book, BookExample> {
 }

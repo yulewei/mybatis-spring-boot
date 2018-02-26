@@ -1,14 +1,13 @@
 package com.example.service;
 
-import java.util.List;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.example.entity.Book;
 import com.example.entity.criteria.BookExample;
-import com.example.mapper.IBookDAO;
+import com.example.mapper.BookMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 /**
  * @author yulewei on 2017/11/22
@@ -17,22 +16,22 @@ import org.springframework.transaction.annotation.Transactional;
 public class BookService {
 
     @Autowired
-    private IBookDAO bookDAO;
+    private BookMapper bookMapper;
 
     public List<Book> findAll() {
         BookExample example = new BookExample();
-        return bookDAO.selectByExample(example);
+        return bookMapper.selectByExample(example);
     }
 
     public List<Book> findByIsbn(String isbn) {
         BookExample example = new BookExample();
         example.createCriteria().andIsbnEqualTo(isbn);
-        return bookDAO.selectByExample(example);
+        return bookMapper.selectByExample(example);
     }
 
     @Transactional
     public Integer insert(Book book) {
-        bookDAO.insertSelective(book);
+        bookMapper.insertSelective(book);
         return book.getId();
     }
 

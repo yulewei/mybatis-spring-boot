@@ -1,16 +1,16 @@
 package com.example.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import java.io.Serializable;
 import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
 
 /**
  * 通用 DAO 基类
  *
  * @author yulewei on 2017/8/24
  */
-public interface IBaseDAO<T, E> {
+public interface BaseMapper<T, E> {
 
     long countByExample(E example);
 

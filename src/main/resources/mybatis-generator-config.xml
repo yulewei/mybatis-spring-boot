@@ -12,7 +12,7 @@
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
         <plugin type="com.example.mbg.plugin.BaseMapperPlugin">
-            <property name="baseMapperType" value="com.example.mapper.IBaseDAO"/>
+            <property name="baseMapperType" value="com.example.mapper.BaseMapper"/>
         </plugin>
 
         <!-- 生成的实体类使用 Lombok 注解 -->
