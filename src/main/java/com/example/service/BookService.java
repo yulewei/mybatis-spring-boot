@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.example.entity.Book;
 import com.example.entity.criteria.BookExample;
 import com.example.mapper.IBookDAO;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * @author yulewei on 2017/11/22
@@ -28,4 +29,11 @@ public class BookService {
         example.createCriteria().andIsbnEqualTo(isbn);
         return bookDAO.selectByExample(example);
     }
+
+    @Transactional
+    public Integer insert(Book book) {
+        bookDAO.insertSelective(book);
+        return book.getId();
+    }
+
 }
