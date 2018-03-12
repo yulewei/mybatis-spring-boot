@@ -43,8 +43,14 @@ public class BaseMapperPlugin extends PluginAdapter {
         }
 
         FullyQualifiedJavaType baseRecordJavaType = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
-        FullyQualifiedJavaType exampleJavaType = new FullyQualifiedJavaType(introspectedTable.getExampleType());
         interfaze.addImportedType(baseRecordJavaType);
+
+        FullyQualifiedJavaType exampleJavaType;
+        if (introspectedTable.getRules().generateExampleClass()) {
+            exampleJavaType = new FullyQualifiedJavaType(introspectedTable.getExampleType());
+        } else {
+            exampleJavaType = new FullyQualifiedJavaType("java.lang.Object");
+        }
         interfaze.addImportedType(exampleJavaType);
 
         FullyQualifiedJavaType baseMapperJavaType = new FullyQualifiedJavaType(baseMapperType);
