@@ -2,6 +2,8 @@ package com.example.mbg;
 
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
@@ -33,6 +35,17 @@ public class MyBatisGen {
         boolean overwrite = true;
         ConfigurationParser cp = new ConfigurationParser(warnings);
         Configuration config = cp.parseConfiguration(configFile);
+
+        // 重写配置文件的配置信息
+        for (Context context : config.getContexts()) {
+            for (TableConfiguration tableConfig : context.getTableConfigurations()) {
+                // 不生成 xxxByExample 代码
+//                tableConfig.setSelectByExampleStatementEnabled(false);
+//                tableConfig.setCountByExampleStatementEnabled(false);
+//                tableConfig.setUpdateByExampleStatementEnabled(false);
+//                tableConfig.setDeleteByExampleStatementEnabled(false);
+            }
+        }
 
         DefaultShellCallback callback = new DefaultShellCallback(overwrite);
         MyBatisGenerator myBatisGenerator = new MyBatisGenerator(config, callback, warnings);
