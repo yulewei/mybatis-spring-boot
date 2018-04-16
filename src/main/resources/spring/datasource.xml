@@ -19,13 +19,14 @@
             <tx:method name="has*" read-only="true"/>
             <tx:method name="count*" read-only="true"/>
             <tx:method name="search*" read-only="true"/>
+            <tx:method name="insert*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
 
     <!-- 定义AOP配置 -->
     <aop:config>
         <!-- 定义一个切入点 -->
-        <aop:pointcut expression="execution (* com.example.service.*.*(..))" id="services"/>
+        <aop:pointcut expression="execution (* com.example.mapper.*.*(..))" id="services"/>
         <!-- 对切入点和事务的通知，进行适配 -->
         <aop:advisor advice-ref="advice" pointcut-ref="services"/>
     </aop:config>

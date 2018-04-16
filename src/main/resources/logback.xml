@@ -14,4 +14,9 @@
     <logger level="DEBUG" name="druid.sql.Statement" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
+
+    <!--<logger level="DEBUG" name="com.example.mapper" additivity="false">-->
+        <!--<appender-ref ref="CONSOLE"/>-->
+    <!--</logger>-->
+
 </configuration>

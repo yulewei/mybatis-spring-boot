@@ -29,8 +29,11 @@
         </commentGenerator>
 
         <!-- !!!! Database Configurations !!!! -->
-        <jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/testdb?characterEncoding=utf-8&amp;useInformationSchema=true"
-                        userId="root" password="123456"/>
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/testdb?characterEncoding=utf-8&amp;useInformationSchema=true"-->
+                        <!--userId="root" password="123456"/>-->
+        <jdbcConnection driverClass="com.mysql.jdbc.Driver"
+                        connectionURL="jdbc:mysql://115.29.161.153:3306/user?characterEncoding=utf-8&amp;useInformationSchema=true"
+                        userId="test" password="dj123456"/>
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
@@ -54,7 +57,15 @@
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
-        <table tableName="book" domainObjectName="Book">
+        <!--<table tableName="book" domainObjectName="Book">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="dj_device_info" domainObjectName="DeviceInfo">-->
+            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
+        <!--</table>-->
+
+        <table tableName="function_auth" domainObjectName="FunctionAuth">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
 

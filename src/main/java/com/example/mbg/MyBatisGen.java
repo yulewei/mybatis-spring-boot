@@ -40,10 +40,10 @@ public class MyBatisGen {
         for (Context context : config.getContexts()) {
             for (TableConfiguration tableConfig : context.getTableConfigurations()) {
                 // 不生成 xxxByExample 代码
-//                tableConfig.setSelectByExampleStatementEnabled(false);
-//                tableConfig.setCountByExampleStatementEnabled(false);
-//                tableConfig.setUpdateByExampleStatementEnabled(false);
-//                tableConfig.setDeleteByExampleStatementEnabled(false);
+                tableConfig.setSelectByExampleStatementEnabled(false);
+                tableConfig.setCountByExampleStatementEnabled(false);
+                tableConfig.setUpdateByExampleStatementEnabled(false);
+                tableConfig.setDeleteByExampleStatementEnabled(false);
             }
         }
 

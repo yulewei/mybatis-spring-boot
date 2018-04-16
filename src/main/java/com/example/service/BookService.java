@@ -26,16 +26,33 @@ public class BookService {
         return bookMapper.selectByExample(example);
     }
 
+    @Transactional(readOnly = true)
     public List<Book> findByIsbn(String isbn) {
         BookExample example = new BookExample();
         example.createCriteria().andIsbnEqualTo(isbn);
         return bookMapper.selectByExample(example);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer insert(Book book) {
         bookMapper.insertSelective(book);
         return book.getId();
     }
 
+    public Integer getBook1(Book book) {
+        bookMapper.insertSelective(book);
+        return book.getId();
+    }
+
+    @Transactional
+    public Integer getBook2(Book book) {
+        bookMapper.insertSelective(book);
+        return book.getId();
+    }
+
+    @Transactional
+    public Integer updateBook(Book book) {
+        bookMapper.updateByPrimaryKeySelective(book);
+        return book.getId();
+    }
 }
