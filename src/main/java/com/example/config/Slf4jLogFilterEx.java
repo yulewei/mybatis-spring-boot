@@ -19,16 +19,17 @@ import java.util.List;
 public class Slf4jLogFilterEx extends Slf4jLogFilter {
 
     public Slf4jLogFilterEx() {
-        this.setConnectionLogEnabled(false);
-        this.setResultSetLogEnabled(false);
-        this.setStatementCloseAfterLogEnabled(false);
-        this.setStatementCreateAfterLogEnabled(false);
-        this.setStatementExecutableSqlLogEnable(true);
-        this.setStatementExecuteAfterLogEnabled(true);
-        this.setStatementExecuteQueryAfterLogEnabled(true);
-        this.setStatementParameterSetLogEnabled(false);
-        this.setStatementPrepareAfterLogEnabled(false);
-//        this.setStatementSqlFormatOption(new SQLUtils.FormatOption(false, false, false));
+        this.setConnectionLogEnabled(false);  // 默认 true
+        this.setResultSetLogEnabled(false);   // 默认 true
+        this.setStatementCloseAfterLogEnabled(false);   // 默认 true
+        this.setStatementCreateAfterLogEnabled(false);  // 默认 true
+        this.setStatementParameterSetLogEnabled(false);  // 默认 true
+        this.setStatementPrepareAfterLogEnabled(false);  // 默认 true
+        this.setStatementExecuteAfterLogEnabled(true);  // 默认 true，确保开启
+        this.setStatementExecuteQueryAfterLogEnabled(true);  // 默认 true，确保开启
+        this.setStatementLogErrorEnabled(true);          // 默认 true，确保开启
+        // 输出的 SQL 修改为全部小写，禁用默认的格式化，并且填充实际参数
+        this.setStatementSqlFormatOption(new SQLUtils.FormatOption(false, false, false));
     }
 
     @Override
@@ -79,7 +80,6 @@ public class Slf4jLogFilterEx extends Slf4jLogFilter {
 
         String dbType = statement.getConnectionProxy().getDirectDataSource().getDbType();
         return SQLUtils.format(sql, dbType, parameters, this.getStatementSqlFormatOption());
-//        return SQLUtils.format(sql, dbType, parameters);
     }
 
     private String stmtId(StatementProxy statement) {
