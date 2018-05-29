@@ -1,17 +1,25 @@
 package com.example.mbg.plugin;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.Properties;
-
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
-import org.mybatis.generator.api.dom.java.*;
+import org.mybatis.generator.api.dom.java.Field;
+import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
+import org.mybatis.generator.api.dom.java.InnerClass;
+import org.mybatis.generator.api.dom.java.JavaElement;
+import org.mybatis.generator.api.dom.java.Method;
+import org.mybatis.generator.api.dom.java.TopLevelClass;
 import org.mybatis.generator.api.dom.xml.TextElement;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.internal.DefaultCommentGenerator;
 import org.mybatis.generator.internal.util.StringUtility;
+
+import javax.xml.bind.DatatypeConverter;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Properties;
+import java.util.Set;
 
 /**
  * MyBatis Generator的注释生成器，会附带数据库表字段的注释到实体类中 <br>
@@ -144,6 +152,66 @@ public class RemarksCommentGenerator extends DefaultCommentGenerator {
         innerClass.addJavaDocLine("/**");
         addJavadocTag(innerClass, markAsDoNotDelete);
         innerClass.addJavaDocLine(" */");
+    }
+
+    @Override
+    public void addGeneralMethodAnnotation(Method method, IntrospectedTable introspectedTable,
+                                           Set<FullyQualifiedJavaType> imports) {
+        imports.add(new FullyQualifiedJavaType("javax.annotation.Generated")); //$NON-NLS-1$
+        String comment = introspectedTable.getFullyQualifiedTable().toString(); //$NON-NLS-1$
+        method.addAnnotation(getGeneratedAnnotation(comment));
+    }
+
+    @Override
+    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable,
+                                   Set<FullyQualifiedJavaType> imports) {
+        imports.add(new FullyQualifiedJavaType("javax.annotation.Generated")); //$NON-NLS-1$
+        String comment = introspectedTable.getFullyQualifiedTable().toString(); //$NON-NLS-1$
+        field.addAnnotation(getGeneratedAnnotation(comment));
+    }
+
+    @Override
+    public void addFieldAnnotation(Field field, IntrospectedTable introspectedTable,
+                                   IntrospectedColumn introspectedColumn, Set<FullyQualifiedJavaType> imports) {
+        imports.add(new FullyQualifiedJavaType("javax.annotation.Generated")); //$NON-NLS-1$
+        String comment = introspectedTable.getFullyQualifiedTable().toString() + "." + introspectedColumn.getActualColumnName();
+        field.addAnnotation(getGeneratedAnnotation(comment));
+    }
+
+    @Override
+    public void addClassAnnotation(InnerClass innerClass, IntrospectedTable introspectedTable,
+                                   Set<FullyQualifiedJavaType> imports) {
+        imports.add(new FullyQualifiedJavaType("javax.annotation.Generated")); //$NON-NLS-1$
+        String comment = introspectedTable.getFullyQualifiedTable().toString(); //$NON-NLS-1$
+        innerClass.addAnnotation(getGeneratedAnnotation(comment));
+    }
+
+    private String getGeneratedAnnotation(String comment) {
+        StringBuilder buffer = new StringBuilder();
+        buffer.append("@Generated("); //$NON-NLS-1$
+        if (suppressAllComments) {
+            buffer.append('\"');
+        } else {
+            buffer.append("value=\""); //$NON-NLS-1$
+        }
+
+        buffer.append("mbg");
+        buffer.append('\"');
+
+        if (!suppressDate && !suppressAllComments) {
+            buffer.append(", date=\""); //$NON-NLS-1$
+            buffer.append(DatatypeConverter.printDateTime(Calendar.getInstance()));
+            buffer.append('\"');
+        }
+
+        if (!suppressAllComments) {
+            buffer.append(", comments=\""); //$NON-NLS-1$
+            buffer.append(comment);
+            buffer.append('\"');
+        }
+
+        buffer.append(')');
+        return buffer.toString();
     }
 
     protected String getDateString() {
