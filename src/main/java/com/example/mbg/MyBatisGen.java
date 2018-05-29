@@ -3,6 +3,7 @@ package com.example.mbg;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.Context;
+import org.mybatis.generator.config.GeneratedKey;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
@@ -24,9 +25,11 @@ public class MyBatisGen {
      */
     public static void main(String[] args) throws Exception {
         String fileName = "src/main/resources/mybatis-generator-config.xml";
+        boolean isGenerateByExample = false;
         if (args.length > 0) {
             // 从命令行参数传入，配置文件名
             fileName = args[0];
+            isGenerateByExample = Boolean.parseBoolean(args[1]);
         }
 
         File configFile = new File(fileName);
@@ -40,10 +43,16 @@ public class MyBatisGen {
         for (Context context : config.getContexts()) {
             for (TableConfiguration tableConfig : context.getTableConfigurations()) {
                 // 不生成 xxxByExample 代码
-                tableConfig.setSelectByExampleStatementEnabled(false);
-                tableConfig.setCountByExampleStatementEnabled(false);
-                tableConfig.setUpdateByExampleStatementEnabled(false);
-                tableConfig.setDeleteByExampleStatementEnabled(false);
+                if (!isGenerateByExample) {
+                    tableConfig.setSelectByExampleStatementEnabled(false);
+                    tableConfig.setCountByExampleStatementEnabled(false);
+                    tableConfig.setUpdateByExampleStatementEnabled(false);
+                    tableConfig.setDeleteByExampleStatementEnabled(false);
+                }
+                if (tableConfig.getGeneratedKey() == null) {
+                    // 自动添加 <generatedKey column="id" sqlStatement="JDBC"/>
+                    tableConfig.setGeneratedKey(new GeneratedKey("id", "JDBC", false, null));
+                }
             }
         }
 
