@@ -7,13 +7,13 @@
     <!-- !!!! Driver Class Path !!!! -->
     <!--<classPathEntry location="/Users/yulewei/.m2/repository/mysql/mysql-connector-java/5.1.39/mysql-connector-java-5.1.39.jar"/>-->
 
-    <context id="context" targetRuntime="MyBatis3">
+    <context id="context" targetRuntime="MyBatis3DynamicSQL">
 
         <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
 
-        <plugin type="com.example.mbg.plugin.BaseMapperPlugin">
-            <property name="baseMapperType" value="com.example.mapper.BaseMapper"/>
-        </plugin>
+        <!--<plugin type="com.example.mbg.plugin.BaseMapperPlugin">-->
+            <!--<property name="baseMapperType" value="com.example.mapper.BaseMapper"/>-->
+        <!--</plugin>-->
 
         <!-- 生成的实体类使用 Lombok 注解 -->
         <plugin type="com.example.mbg.plugin.LombokPlugin">
@@ -25,22 +25,23 @@
             <!-- 是否去除自动生成的注释中时间信息 -->
             <property name="suppressDate" value="true"/>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
-            <property name="suppressAllComments" value="false"/>
+            <property name="suppressAllComments" value="true"/>
         </commentGenerator>
 
         <!-- !!!! Database Configurations !!!! -->
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/testdb?characterEncoding=utf-8&amp;useInformationSchema=true"-->
-                        <!--userId="root" password="123456"/>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://115.29.161.153:3306/user?characterEncoding=utf-8&amp;useInformationSchema=true"
-                        userId="test" password="dj123456"/>
+                        connectionURL="jdbc:mysql://localhost:3306/testdb?characterEncoding=utf-8&amp;useInformationSchema=true"
+                        userId="root" password="123456"/>
+        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+                        <!--connectionURL="jdbc:mysql://115.29.161.153:3306/user?characterEncoding=utf-8&amp;useInformationSchema=true"-->
+                        <!--userId="test" password="dj123456"/>-->
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
         <!-- !!!! Model Configurations !!!! -->
-        <javaModelGenerator targetPackage="com.example.entity" targetProject="src/main/java/">
+        <javaModelGenerator targetPackage="com.dynamic.entity" targetProject="src/main/java/">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -51,23 +52,27 @@
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
-        <javaClientGenerator targetPackage="com.example.mapper"
+        <javaClientGenerator targetPackage="com.dynamic.mapper"
                              targetProject="src/main/java/" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
-        <!--<table tableName="book" domainObjectName="Book">-->
-            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--</table>-->
+        <table tableName="book" domainObjectName="BookDyn">
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        </table>
 
         <!--<table tableName="dj_device_info" domainObjectName="DeviceInfo">-->
             <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
         <!--</table>-->
 
-        <table tableName="function_auth" domainObjectName="FunctionAuth">
-            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
-        </table>
+        <!--<table tableName="kp_suspect" domainObjectName="Suspect">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
+
+        <!--<table tableName="kp_user_banned" domainObjectName="BannedUser">-->
+            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
+        <!--</table>-->
 
     </context>
 </generatorConfiguration>

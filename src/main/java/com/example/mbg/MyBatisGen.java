@@ -24,8 +24,8 @@ public class MyBatisGen {
      * 生成器的配置文件自行指定，从命令行参数传入
      */
     public static void main(String[] args) throws Exception {
-        String fileName = "src/main/resources/mybatis-generator-config.xml";
-        boolean isGenerateByExample = false;
+        String fileName = "src/main/resources/mbg-config.xml";
+        boolean isGenerateByExample = true;
         if (args.length > 0) {
             // 从命令行参数传入，配置文件名
             fileName = args[0];

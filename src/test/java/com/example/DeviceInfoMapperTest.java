@@ -31,7 +31,7 @@ public class DeviceInfoMapperTest {
     private DeviceInfoMapper deviceInfoMapper;
 
     @Test
-    public void name() throws InterruptedException {
+    public void deviceStat() {
         DeviceInfoExample example = new DeviceInfoExample();
         example.createCriteria().andUidNotEqualTo(0L).andDeviceTokenNotEqualTo("");
         example.setOrderByClause("uid");
@@ -95,4 +95,33 @@ public class DeviceInfoMapperTest {
         System.out.println("ios: " + (iOSDefaultCount + iOSDfbbCount) + " / " + listUni.size());
     }
 
+    @Test
+    public void name() {
+        DeviceInfoExample example = new DeviceInfoExample();
+        example.createCriteria().andUidNotEqualTo(0L).andDeviceTokenNotEqualTo("");
+        example.setOrderByClause("uid");
+        long total = deviceInfoMapper.countByExample(example);
+        int pageSize = 10000;
+        long pages = (int) (total / pageSize + ((total % pageSize == 0) ? 0 : 1));
+
+        for (int page = 1; page <= pages; page++) {
+            PageHelper.startPage(page, pageSize, false);
+            List<DeviceInfo> list = deviceInfoMapper.selectByExample(example);
+            Map<Long, List<DeviceInfo>> uidMap = StreamEx.of(list).groupingBy(DeviceInfo::getUid);
+            for (Long uid : uidMap.keySet()) {
+                List<DeviceInfo> deviceInfoList = uidMap.get(uid);
+                boolean find = false;
+                for (int i = 1; i < deviceInfoList.size(); i++) {
+                    DeviceInfo deviceInfo0 = deviceInfoList.get(i - 1);
+                    DeviceInfo deviceInfo1 = deviceInfoList.get(i);
+                    if (deviceInfo0.getDeviceToken().equals(deviceInfo1.getDeviceToken())) {
+                        find = true;
+                    }
+                }
+                if(find){
+                    System.out.println(deviceInfoList);
+                }
+            }
+        }
+    }
 }

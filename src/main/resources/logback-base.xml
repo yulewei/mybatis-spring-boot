@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<included>
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %5p --- [%t] %-40.40logger{39} : %m%n</Pattern>
+        </layout>
+    </appender>
+
+    <root level="info">
+        <appender-ref ref="CONSOLE"/>
+    </root>
+
+    <logger level="debug" name="druid.sql.Statement" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger level="debug" name="com.example.mapper" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+    <logger level="error" name="com.example.job.TestJob" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
+
+</included>

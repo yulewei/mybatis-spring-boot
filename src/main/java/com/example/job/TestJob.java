@@ -1,9 +1,12 @@
 package com.example.job;
 
+import com.example.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import javax.annotation.Resource;
 
 /**
  * @author yulewei on 16-5-23.
@@ -11,11 +14,15 @@ import org.springframework.stereotype.Component;
 @Component
 public class TestJob {
 
+    @Resource
+    private BookService bookService;
+
     private static final Logger logger = LoggerFactory.getLogger(TestJob.class);
 
     @Scheduled(fixedRate = 1000)
     public void run() {
-        logger.info("hello你好");
+        bookService.findAll();
+        logger.info("hello你好, {}", 1024);
     }
 
 //    @Scheduled(fixedRate = 6000)

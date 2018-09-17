@@ -1,9 +1,8 @@
-package com.example.service;
+package com.example.mapper;
 
 import com.example.dto.BookSearch;
 import com.example.entity.Book;
 import com.example.entity.criteria.BookExample;
-import com.example.mapper.BookMapper;
 import com.example.util.PageInfo;
 import com.github.pagehelper.PageHelper;
 import org.springframework.stereotype.Service;
@@ -15,11 +14,9 @@ import java.util.List;
 /**
  * @author yulewei on 2017/11/22
  */
-@Service("bookService")
+@Service("bookService1")
 public class BookService {
 
-    @Resource
-    private BookService bookService;
     @Resource
     private BookMapper bookMapper;
 
@@ -42,16 +39,9 @@ public class BookService {
         return bookMapper.selectByExample(example);
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public Integer insert(Book book) {
         bookMapper.insertSelective(book);
-
-        try {
-            book.setTitle("222");
-            bookService.updateBook(book);
-        } catch (Exception e) {
-            System.out.println("异常");
-        }
         return book.getId();
     }
 
@@ -66,10 +56,9 @@ public class BookService {
         return book.getId();
     }
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    @Transactional
     public Integer updateBook(Book book) {
         bookMapper.updateByPrimaryKeySelective(book);
         return book.getId();
-//        throw new RuntimeException("RuntimeException");
     }
 }

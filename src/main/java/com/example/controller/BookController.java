@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.example.entity.Book;
 import com.example.service.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,22 @@ public class BookController {
     @GetMapping("/book/{isbn}")
     public List<Book> bookByIsbn(@PathVariable("isbn") String isbn) {
         return bookService.findByIsbn(isbn);
+    }
+
+    /**
+     * curl -XPOST -H 'Content-Type: application/json' http://localhost:8080/book3?isbn=123
+     */
+    @PostMapping("/book3")
+    public List<Book> bookByIsbn3(String isbn) {
+        return bookService.findByIsbn(isbn);
+    }
+
+    /**
+     * curl -XPOST -H 'Content-Type: application/json' -d '{"isbn": 123}' http://localhost:8080/book2
+     */
+    @PostMapping("/book2")
+    public List<Book> bookByIsbn2(@RequestBody JSONObject isbn) {
+        return bookService.findByIsbn(isbn.getString("isbn"));
     }
 
     @PostMapping("/book/insert")
