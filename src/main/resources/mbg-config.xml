@@ -69,7 +69,7 @@
             <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
         <!--</table>-->
 
-        <table tableName="craftsman_snapshot" domainObjectName="CraftsmanSnapshot">
+        <table tableName="admin" domainObjectName="Admin">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
 

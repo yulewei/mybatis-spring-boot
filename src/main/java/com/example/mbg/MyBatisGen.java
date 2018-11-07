@@ -3,7 +3,6 @@ package com.example.mbg;
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.Context;
-import org.mybatis.generator.config.GeneratedKey;
 import org.mybatis.generator.config.TableConfiguration;
 import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
@@ -48,10 +47,6 @@ public class MyBatisGen {
                     tableConfig.setCountByExampleStatementEnabled(false);
                     tableConfig.setUpdateByExampleStatementEnabled(false);
                     tableConfig.setDeleteByExampleStatementEnabled(false);
-                }
-                if (tableConfig.getGeneratedKey() == null) {
-                    // 自动添加 <generatedKey column="id" sqlStatement="JDBC"/>
-                    tableConfig.setGeneratedKey(new GeneratedKey("id", "JDBC", false, null));
                 }
             }
         }
