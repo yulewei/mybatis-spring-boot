@@ -1,8 +1,10 @@
 package com.example.job;
 
+import com.alicp.jetcache.anno.config.EnableMethodCache;
 import com.example.service.BookService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -19,15 +21,12 @@ public class TestJob {
 
     private static final Logger logger = LoggerFactory.getLogger(TestJob.class);
 
-    @Scheduled(fixedRate = 1000)
+//    @Scheduled(fixedRate = 1000)
     public void run() {
-        bookService.findAll();
+        bookService.findByIsbn("9787111255833");
         logger.info("hello你好, {}", 1024);
     }
 
-//    @Scheduled(fixedRate = 6000)
-//    public void run2() {
-//        logger.error("hello你好2");
-//    }
+
 
 }

@@ -3,9 +3,14 @@ package com.example.service;
 import com.example.dto.BookSearch;
 import com.example.entity.Book;
 import com.example.entity.criteria.BookExample;
+import com.example.job.TestJob;
 import com.example.mapper.BookMapper;
 import com.example.util.PageInfo;
 import com.github.pagehelper.PageHelper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,7 +22,9 @@ import java.util.List;
  */
 @Service("bookService")
 public class BookService {
+    private static final Logger logger = LoggerFactory.getLogger(TestJob.class);
 
+    @Lazy
     @Resource
     private BookService bookService;
     @Resource
@@ -33,6 +40,17 @@ public class BookService {
     public List<Book> findAll() {
         BookExample example = new BookExample();
         return bookMapper.selectByExample(example);
+    }
+
+    @Async
+    public void asyncRun()  {
+        logger.error("async start");
+        try {
+            Thread.sleep(5000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        logger.error("async end");
     }
 
     @Transactional(readOnly = true)

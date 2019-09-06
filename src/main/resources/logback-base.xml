@@ -18,7 +18,7 @@
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <logger level="error" name="com.example.job.TestJob" additivity="false">
+    <logger level="debug" name="com.example.job.TestJob" additivity="false">
         <appender-ref ref="CONSOLE"/>
     </logger>
 

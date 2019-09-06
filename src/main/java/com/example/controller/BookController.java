@@ -1,5 +1,6 @@
 package com.example.controller;
 
+import com.alicp.jetcache.anno.Cached;
 import com.example.entity.Book;
 import com.example.job.TestJob;
 import com.example.service.BookService;
@@ -64,7 +65,9 @@ public class BookController {
      * curl -XPOST -H 'Content-Type: application/json' http://localhost:8080/book3?isbn=123
      */
     @PostMapping("/book3")
+    @Cached(name = "user:book:", key = "#isbn", expire = 3600)
     public List<Book> bookByIsbn3(String isbn) {
+        logger.info("bookByIsbn3");
         return bookService.findByIsbn(isbn);
     }
 
