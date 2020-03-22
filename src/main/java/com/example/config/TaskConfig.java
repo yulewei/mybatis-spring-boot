@@ -19,8 +19,8 @@ import java.util.concurrent.Executor;
 @ComponentScan(basePackages  = {"com.example"} )
 public class TaskConfig {
 
-    @Bean
-    public TaskExecutor taskExecutor() {
-        return new SimpleAsyncTaskExecutor();
-    }
+//    @Bean
+//    public TaskExecutor taskExecutor() {
+//        return new SimpleAsyncTaskExecutor();
+//    }
 }

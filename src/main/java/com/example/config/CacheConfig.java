@@ -14,6 +14,8 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 
+import java.time.Duration;
+
 /**
  * @author yulewei on 2018/11/7
  */
@@ -41,6 +43,7 @@ public class CacheConfig {
         RedisCacheConfiguration configuration =
                 RedisCacheConfiguration.defaultCacheConfig()
                         .disableCachingNullValues()
+                        .entryTtl(Duration.ofDays(1))
                         .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(new GenericJackson2JsonRedisSerializer()));
         return RedisCacheManager.builder(factory).cacheDefaults(configuration).build();
     }
