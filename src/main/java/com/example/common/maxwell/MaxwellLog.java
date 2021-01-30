@@ -1,6 +1,6 @@
 package com.example.common.maxwell;
 
-import cn.idongjia.common.base.Base;
+import com.example.common.Base;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
