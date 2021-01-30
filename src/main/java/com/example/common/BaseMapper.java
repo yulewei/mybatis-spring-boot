@@ -1,8 +1,6 @@
-package com.example.mapper;
+package com.example.common;
 
 import org.apache.ibatis.annotations.Param;
-import org.springframework.transaction.annotation.Propagation;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.io.Serializable;
 import java.util.List;

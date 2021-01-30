@@ -1,11 +1,9 @@
-package com.example;
+package com.example.service;
 
 import com.alibaba.fastjson.JSON;
-import com.alibaba.fastjson.serializer.SerializerFeature;
+import com.example.common.Page;
 import com.example.dto.BookSearch;
 import com.example.entity.Book;
-import com.example.service.BookService;
-import com.example.util.PageInfo;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +23,8 @@ public class BookServiceTest {
     @Test
     public void searchByPage() {
         BookSearch bookSearch = BookSearch.builder().page(1).limit(10).build();
-        PageInfo<Book> list = service.searchByPage(bookSearch);
-        System.out.println(JSON.toJSONString(list, SerializerFeature.PrettyFormat));
+        Page<Book> list = service.searchByPage(bookSearch);
+        System.out.println(JSON.toJSONString(list));
     }
 
     @Test
@@ -53,7 +51,6 @@ public class BookServiceTest {
         service.insert(book);
     }
 
-
     @Test
     public void readOnly1() {
         Book book = new Book();
@@ -73,7 +70,6 @@ public class BookServiceTest {
         book.setPrice("20.0");
         service.getBook2(book);
     }
-
 
     @Test
     @Rollback(value = false)

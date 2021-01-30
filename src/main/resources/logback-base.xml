@@ -6,6 +6,17 @@
         </layout>
     </appender>
 
+    <appender name="SERVICE-OUT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>service.log</file>
+        <encoder>
+            <pattern>${ENCODER_PATTERN}</pattern>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${logpath}/service.%d{yyyy-MM-dd}.log.gz</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
     <root level="info">
         <appender-ref ref="CONSOLE"/>
     </root>
@@ -14,12 +25,13 @@
         <appender-ref ref="CONSOLE"/>
     </logger>
 
-    <logger level="debug" name="com.example.mapper" additivity="false">
-        <appender-ref ref="CONSOLE"/>
-    </logger>
+    <!--    <logger level="debug" name="com.example.mapper" additivity="false">-->
+    <!--        <appender-ref ref="CONSOLE"/>-->
+    <!--    </logger>-->
 
     <logger level="debug" name="com.example.job.TestJob" additivity="false">
         <appender-ref ref="CONSOLE"/>
+        <appender-ref ref="SERVICE-OUT"/>
     </logger>
 
 </included>

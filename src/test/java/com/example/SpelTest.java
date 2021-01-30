@@ -10,7 +10,7 @@ import org.springframework.expression.spel.support.StandardTypeLocator;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 
-public class Main {
+public class SpelTest {
 
     public static void main(String[] args) {
         ExpressionParser parser = new SpelExpressionParser();

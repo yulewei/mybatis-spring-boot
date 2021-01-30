@@ -1,13 +1,9 @@
-package com.example;
+package com.example.service;
 
 import com.example.entity.User;
-import com.example.service.UserService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.expression.Expression;
-import org.springframework.expression.ExpressionParser;
-import org.springframework.expression.spel.standard.SpelExpressionParser;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import javax.annotation.Resource;

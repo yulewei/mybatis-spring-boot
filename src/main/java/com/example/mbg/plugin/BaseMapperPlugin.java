@@ -1,6 +1,6 @@
 package com.example.mbg.plugin;
 
-import com.example.mapper.BaseMapper;
+import org.apache.commons.lang3.StringUtils;
 import org.mybatis.generator.api.IntrospectedTable;
 import org.mybatis.generator.api.PluginAdapter;
 import org.mybatis.generator.api.dom.java.FullyQualifiedJavaType;
@@ -10,17 +10,20 @@ import org.mybatis.generator.api.dom.java.TopLevelClass;
 
 import java.io.File;
 import java.util.List;
+import java.util.Properties;
 
 import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
 
 /**
  * 生成的 DAO 方法名采用官方写法
  *
- * @see BaseMapper
+ * // * @see BaseMapper
  */
 public class BaseMapperPlugin extends PluginAdapter {
 
     private String baseMapperType;
+
+    private String baseEntityType;
 
     public boolean validate(List<String> warnings) {
         return true;
@@ -35,8 +38,14 @@ public class BaseMapperPlugin extends PluginAdapter {
     }
 
     @Override
-    public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+    public void setProperties(Properties properties) {
+        super.setProperties(properties);
         baseMapperType = properties.getProperty("baseMapperType");
+        baseEntityType = properties.getProperty("baseEntityType");
+    }
+
+    @Override
+    public boolean clientGenerated(Interface interfaze, TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
         if (!stringHasValue(baseMapperType)) {
             System.err.println("[ERROR] BaseMapperPlugin baseMapperType property must be provided");
             return false;
@@ -63,6 +72,35 @@ public class BaseMapperPlugin extends PluginAdapter {
         String path = targetPackage + "/" + interfaze.getType().getFullyQualifiedName().replaceAll("\\.", "/") + ".java";
         File file = new File(path);
         return !file.exists();
+    }
+
+    @Override
+    public boolean modelBaseRecordClassGenerated(TopLevelClass topLevelClass,
+                                                 IntrospectedTable introspectedTable) {
+        addBaseEntityType(topLevelClass, introspectedTable);
+        return true;
+    }
+
+    @Override
+    public boolean modelPrimaryKeyClassGenerated(TopLevelClass topLevelClass,
+                                                 IntrospectedTable introspectedTable) {
+        addBaseEntityType(topLevelClass, introspectedTable);
+        return true;
+    }
+
+    @Override
+    public boolean modelRecordWithBLOBsClassGenerated(
+            TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        addBaseEntityType(topLevelClass, introspectedTable);
+        return true;
+    }
+
+    private void addBaseEntityType(TopLevelClass topLevelClass, IntrospectedTable introspectedTable) {
+        if (StringUtils.isNotBlank(baseEntityType)) {
+            FullyQualifiedJavaType baseEntityJavaType = new FullyQualifiedJavaType(baseEntityType);
+            topLevelClass.addImportedType(baseEntityJavaType);
+            topLevelClass.setSuperClass(baseEntityJavaType);
+        }
     }
 
     @Override

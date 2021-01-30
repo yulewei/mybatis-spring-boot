@@ -1,11 +1,11 @@
 package com.example.service;
 
+import com.example.common.Page;
+import com.example.common.PageUtils;
 import com.example.dto.BookSearch;
 import com.example.entity.Book;
 import com.example.entity.criteria.BookExample;
-import com.example.job.TestJob;
 import com.example.mapper.BookMapper;
-import com.example.util.PageInfo;
 import com.github.pagehelper.PageHelper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -22,7 +22,7 @@ import java.util.List;
  */
 @Service("bookService")
 public class BookService {
-    private static final Logger logger = LoggerFactory.getLogger(TestJob.class);
+    private static final Logger logger = LoggerFactory.getLogger(BookService.class);
 
     @Lazy
     @Resource
@@ -30,11 +30,11 @@ public class BookService {
     @Resource
     private BookMapper bookMapper;
 
-    public PageInfo<Book> searchByPage(BookSearch bookSearch) {
+    public Page<Book> searchByPage(BookSearch bookSearch) {
         PageHelper.startPage(bookSearch.getPage(), bookSearch.getLimit());
         BookExample example = new BookExample();
         List<Book> list = bookMapper.selectByExample(example);
-        return PageInfo.of(list);
+        return PageUtils.build(list);
     }
 
     public List<Book> findAll() {
@@ -43,7 +43,7 @@ public class BookService {
     }
 
     @Async
-    public void asyncRun()  {
+    public void asyncRun() {
         logger.error("async start");
         try {
             Thread.sleep(5000);
@@ -84,7 +84,7 @@ public class BookService {
         return book.getId();
     }
 
-//    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    //    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public Integer updateBook(Book book) {
         bookMapper.updateByPrimaryKeySelective(book);
         return book.getId();

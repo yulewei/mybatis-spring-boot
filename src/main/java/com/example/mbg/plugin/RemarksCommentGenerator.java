@@ -22,9 +22,9 @@ import java.util.Properties;
 import java.util.Set;
 
 /**
- * MyBatis Generator的注释生成器，会附带数据库表字段的注释到实体类中 <br>
+ * MyBatis Generator 的注释生成器，会附带数据库表字段的注释到实体类中 <br>
  * <p>
- * 官方类似的功能见，在版本1.3.3中添加的 addRemarkComments <br>
+ * 官方类似的功能见，在版本 1.3.3 中添加的 addRemarkComments <br>
  * http://www.mybatis.org/generator/configreference/commentGenerator.html <br>
  * https://github.com/mybatis/generator/issues/23
  *
@@ -95,17 +95,17 @@ public class RemarksCommentGenerator extends DefaultCommentGenerator {
 
         field.addJavaDocLine(" *");
         field.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable() + '.' + introspectedColumn.getActualColumnName());
-        field.addJavaDocLine(" *");
-        addJavadocTag(field, false);
+//        field.addJavaDocLine(" *");
+//        addJavadocTag(field, false);  // 字段不加 @mbg.generated
         field.addJavaDocLine(" */");
     }
 
     public void addFieldComment(Field field, IntrospectedTable introspectedTable) {
         if (this.suppressAllComments) return;
 
-        field.addJavaDocLine("/**");
-        addJavadocTag(field, false);
-        field.addJavaDocLine(" */");
+//        field.addJavaDocLine("/**");
+//        addJavadocTag(field, false);
+//        field.addJavaDocLine(" */");  // 字段不加 @mbg.generated
     }
 
     public void addGeneralMethodComment(Method method, IntrospectedTable introspectedTable) {
@@ -113,7 +113,7 @@ public class RemarksCommentGenerator extends DefaultCommentGenerator {
 
         method.addJavaDocLine("/**");
         addJavadocTag(method, false);
-        method.addJavaDocLine(" */");
+        method.addJavaDocLine(" */");  // 方法添加 @mbg.generated
     }
 
     public void addGetterComment(Method method, IntrospectedTable introspectedTable, IntrospectedColumn introspectedColumn) {
@@ -141,7 +141,7 @@ public class RemarksCommentGenerator extends DefaultCommentGenerator {
         if (this.suppressAllComments) return;
 
         innerClass.addJavaDocLine("/**");
-//		innerClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable());
+//        innerClass.addJavaDocLine(" * " + introspectedTable.getFullyQualifiedTable());
         addJavadocTag(innerClass, false);
         innerClass.addJavaDocLine(" */");
     }

@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.common;
 
 import com.alibaba.druid.filter.logging.Slf4jLogFilter;
 import com.alibaba.druid.proxy.jdbc.CallableStatementProxy;
@@ -40,7 +40,7 @@ public class Slf4jLogFilterEx extends Slf4jLogFilter {
             double millis = nanos / (1000 * 1000);
 
             String formattedSql = this.buildFormattedSql(statement, sql);
-            String message = String.format("{conn-%s, %s} query executed. %.2f millis.\n\t%s",
+            String message = String.format("{conn-%s, %s} query executed. %.2f millis.\t%s",
                     statement.getConnectionProxy().getId(), stmtId(statement), millis, formattedSql);
             this.statementLog(message);
         }
@@ -54,7 +54,7 @@ public class Slf4jLogFilterEx extends Slf4jLogFilter {
             double millis = nanos / (1000 * 1000);
 
             String formattedSql = this.buildFormattedSql(statement, sql);
-            String message = String.format("{conn-%s, %s} executed. %.2f millis.\n\t%s",
+            String message = String.format("{conn-%s, %s} executed. %.2f millis.\t%s",
                     statement.getConnectionProxy().getId(), stmtId(statement), millis, formattedSql);
             this.statementLog(message);
         }
@@ -64,7 +64,7 @@ public class Slf4jLogFilterEx extends Slf4jLogFilter {
     protected void statement_executeErrorAfter(StatementProxy statement, String sql, Throwable error) {
         if (this.isStatementLogErrorEnabled()) {
             String formattedSql = this.buildFormattedSql(statement, sql);
-            String message = String.format("{conn-%s, %s} execute error.\n\t%s",
+            String message = String.format("{conn-%s, %s} execute error.\t%s",
                     statement.getConnectionProxy().getId(), stmtId(statement), formattedSql);
             this.statementLogError(message, error);
         }

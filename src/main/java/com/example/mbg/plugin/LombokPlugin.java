@@ -8,12 +8,13 @@ import org.mybatis.generator.api.dom.java.Interface;
 import org.mybatis.generator.api.dom.java.Method;
 import org.mybatis.generator.api.dom.java.TopLevelClass;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Collections;
-import java.util.LinkedHashSet;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Properties;
+import java.util.Set;
 
 /**
  * A MyBatis Generator plugin to use Lombok's annotations.
@@ -29,7 +30,7 @@ public class LombokPlugin extends PluginAdapter {
      * LombokPlugin constructor
      */
     public LombokPlugin() {
-        annotations = new LinkedHashSet<Annotations>(Annotations.values().length);
+        annotations = new ArrayList<>(Annotations.values().length);
     }
 
     /**
@@ -138,19 +139,25 @@ public class LombokPlugin extends PluginAdapter {
     public void setProperties(Properties properties) {
         super.setProperties(properties);
 
-        //@Data is default annotation
-        annotations.add(Annotations.DATA);
-
+        Set<Annotations> set = new HashSet<>();
+        set.add(Annotations.DATA);  // 默认添加
         for (Entry<Object, Object> entry : properties.entrySet()) {
             boolean isEnable = Boolean.parseBoolean(entry.getValue().toString());
+            String paramName = entry.getKey().toString().trim();
+            Annotations annotation = Annotations.getValueOf(paramName);
+            if (annotation == null)
+                continue;
 
             if (isEnable) {
-                String paramName = entry.getKey().toString().trim();
-                Annotations annotation = Annotations.getValueOf(paramName);
-                if (annotation != null) {
-                    annotations.add(annotation);
-                    annotations.addAll(Annotations.getDependencies(annotation));
-                }
+                set.add(annotation);
+            } else {
+                set.remove(annotation);
+            }
+        }
+
+        for (Annotations annotation : Annotations.values()) {
+            if (set.contains(annotation)) {
+                annotations.add(annotation);
             }
         }
     }
@@ -166,6 +173,8 @@ public class LombokPlugin extends PluginAdapter {
 
     private enum Annotations {
         DATA("data", "@Data", "lombok.Data"),
+        GETTER("getter", "@Getter", "lombok.Getter"),
+        SETTER("setter", "@Setter", "lombok.Setter"),
         BUILDER("builder", "@Builder", "lombok.Builder"),
         ALL_ARGS_CONSTRUCTOR("allArgsConstructor", "@AllArgsConstructor", "lombok.AllArgsConstructor"),
         NO_ARGS_CONSTRUCTOR("noArgsConstructor", "@NoArgsConstructor", "lombok.NoArgsConstructor"),
@@ -187,13 +196,6 @@ public class LombokPlugin extends PluginAdapter {
                     return annotation;
 
             return null;
-        }
-
-        private static Collection<Annotations> getDependencies(Annotations annotation) {
-            if (annotation == ALL_ARGS_CONSTRUCTOR)
-                return Collections.singleton(NO_ARGS_CONSTRUCTOR);
-            else
-                return Collections.emptyList();
         }
     }
 }

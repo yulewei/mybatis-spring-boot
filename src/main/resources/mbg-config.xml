@@ -9,16 +9,19 @@
 
     <context id="context" targetRuntime="MyBatis3">
 
-        <plugin type="org.mybatis.generator.plugins.SerializablePlugin"/>
-
         <plugin type="com.example.mbg.plugin.BaseMapperPlugin">
-            <property name="baseMapperType" value="com.example.mapper.BaseMapper"/>
+            <property name="baseMapperType" value="com.example.common.BaseMapper"/>
+            <property name="baseEntityType" value="com.example.common.Base"/>
         </plugin>
 
         <!-- 生成的实体类使用 Lombok 注解 -->
         <plugin type="com.example.mbg.plugin.LombokPlugin">
+            <property name="data" value="false"/>
+            <property name="getter" value="true"/>
+            <property name="setter" value="true"/>
             <property name="builder" value="true"/>
             <property name="allArgsConstructor" value="true"/>
+            <property name="noArgsConstructor" value="true"/>
         </plugin>
 
         <commentGenerator type="com.example.mbg.plugin.RemarksCommentGenerator">
@@ -29,18 +32,19 @@
         </commentGenerator>
 
         <!-- !!!! Database Configurations !!!! -->
-        <!--<jdbcConnection driverClass="com.mysql.jdbc.Driver" connectionURL="jdbc:mysql://localhost:3306/test?characterEncoding=utf-8&amp;useInformationSchema=true"-->
-                        <!--userId="root" password="123456"/>-->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://172.16.4.23:3306/user?characterEncoding=utf-8&amp;useInformationSchema=true"
-                        userId="test" password="dj123456"/>
+                        connectionURL="jdbc:mysql://localhost:3306/testdb?characterEncoding=utf-8&amp;useInformationSchema=true"
+                        userId="root" password="123456"/>
+        <!--        <jdbcConnection driverClass="com.mysql.jdbc.Driver"-->
+        <!--                        connectionURL="jdbc:mysql://172.16.3.95:3306/user?characterEncoding=utf-8&amp;useInformationSchema=true"-->
+        <!--                        userId="test" password="dj123456"/>-->
 
         <javaTypeResolver>
             <property name="forceBigDecimals" value="false"/>
         </javaTypeResolver>
 
         <!-- !!!! Model Configurations !!!! -->
-        <javaModelGenerator targetPackage="cn.idongjia.entity" targetProject="src/main/java/">
+        <javaModelGenerator targetPackage="com.example.entity" targetProject="src/main/java/">
             <property name="enableSubPackages" value="false"/>
             <property name="trimStrings" value="true"/>
         </javaModelGenerator>
@@ -51,25 +55,13 @@
         </sqlMapGenerator>
 
         <!-- !!!! Mapper Interface Configurations !!!! -->
-        <javaClientGenerator targetPackage="cn.idongjia.mapper"
+        <javaClientGenerator targetPackage="com.example.mapper"
                              targetProject="src/main/java/" type="XMLMAPPER">
             <property name="enableSubPackages" value="false"/>
         </javaClientGenerator>
 
         <!-- !!!! Table Configurations !!!! -->
-        <!--<table tableName="book" domainObjectName="BookDyn">-->
-            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
-        <!--</table>-->
-
-        <!--<table tableName="dj_device_info" domainObjectName="DeviceInfo">-->
-            <!--<generatedKey column="id" sqlStatement="MySql" identity="true"/>-->
-        <!--</table>-->
-
-        <!--<table tableName="admin" domainObjectName="Admin">-->
-            <!--<generatedKey column="id" sqlStatement="JDBC"/>-->
-        <!--</table>-->
-
-        <table tableName="admin" domainObjectName="Admin">
+        <table tableName="book" domainObjectName="Book">
             <generatedKey column="id" sqlStatement="JDBC"/>
         </table>
 

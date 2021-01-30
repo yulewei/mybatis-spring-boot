@@ -108,21 +108,15 @@
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.example.entity.Book">
+  <insert id="insert" keyColumn="id" keyProperty="id" parameterType="com.example.entity.Book" useGeneratedKeys="true">
     <!-- @mbg.generated -->
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into book (isbn, title, author, 
       price, publish_date)
     values (#{isbn,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
       #{price,jdbcType=VARCHAR}, #{publishDate,jdbcType=DATE})
   </insert>
-  <insert id="insertSelective" parameterType="com.example.entity.Book">
+  <insert id="insertSelective" keyColumn="id" keyProperty="id" parameterType="com.example.entity.Book" useGeneratedKeys="true">
     <!-- @mbg.generated -->
-    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
-      SELECT LAST_INSERT_ID()
-    </selectKey>
     insert into book
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="isbn != null">

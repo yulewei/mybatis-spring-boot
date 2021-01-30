@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.common.cache;
 
 import com.alibaba.fastjson.JSON;
 import com.alicp.jetcache.support.AbstractValueDecoder;
@@ -6,7 +6,6 @@ import com.alicp.jetcache.support.AbstractValueDecoder;
 /**
  * https://github.com/alibaba/jetcache/wiki/FAQ_CN
  */
-@Deprecated
 public class FastjsonValueDecoder extends AbstractValueDecoder {
 
     public FastjsonValueDecoder(boolean useIdentityNumber) {

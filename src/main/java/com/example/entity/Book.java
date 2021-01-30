@@ -1,11 +1,12 @@
 package com.example.entity;
 
-import java.io.Serializable;
+import com.example.common.Base;
 import java.util.Date;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 /**
  * 书籍表
@@ -14,16 +15,15 @@ import lombok.NoArgsConstructor;
  *
  * @mbg.generated
  */
-@Data
+@Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class Book implements Serializable {
+public class Book extends Base {
     /**
      *
      * book.id
-     *
-     * @mbg.generated
      */
     private Integer id;
 
@@ -31,8 +31,6 @@ public class Book implements Serializable {
      * isbn
      *
      * book.isbn
-     *
-     * @mbg.generated
      */
     private String isbn;
 
@@ -40,8 +38,6 @@ public class Book implements Serializable {
      * 书名
      *
      * book.title
-     *
-     * @mbg.generated
      */
     private String title;
 
@@ -49,8 +45,6 @@ public class Book implements Serializable {
      * 作者
      *
      * book.author
-     *
-     * @mbg.generated
      */
     private String author;
 
@@ -58,8 +52,6 @@ public class Book implements Serializable {
      * 定价
      *
      * book.price
-     *
-     * @mbg.generated
      */
     private String price;
 
@@ -67,13 +59,6 @@ public class Book implements Serializable {
      * 出版时间
      *
      * book.publish_date
-     *
-     * @mbg.generated
      */
     private Date publishDate;
-
-    /**
-     * @mbg.generated
-     */
-    private static final long serialVersionUID = 1L;
 }

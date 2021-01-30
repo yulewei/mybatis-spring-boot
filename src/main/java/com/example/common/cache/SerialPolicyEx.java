@@ -1,12 +1,11 @@
-package com.example.config;
+package com.example.common.cache;
 
 import com.alicp.jetcache.anno.SerialPolicy;
 
-/**
- * @author yulewei on 2019-09-03
- */
 public interface SerialPolicyEx extends SerialPolicy {
 
-    String FASTJSON = "FASTJSON";
+    String FASTJSON = "fastjson";
+
+    String MSGPACK = "msgpack";
 
 }

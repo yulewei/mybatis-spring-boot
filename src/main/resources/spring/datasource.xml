@@ -19,7 +19,6 @@
             <tx:method name="has*" read-only="true"/>
             <tx:method name="count*" read-only="true"/>
             <tx:method name="search*" read-only="true"/>
-            <tx:method name="insert*" read-only="true"/>
         </tx:attributes>
     </tx:advice>
 

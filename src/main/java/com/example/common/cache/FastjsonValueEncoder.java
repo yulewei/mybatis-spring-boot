@@ -1,4 +1,4 @@
-package com.example.config;
+package com.example.common.cache;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -8,7 +8,6 @@ import com.alicp.jetcache.support.CacheEncodeException;
 /**
  * https://github.com/alibaba/jetcache/wiki/FAQ_CN
  */
-@Deprecated
 public class FastjsonValueEncoder extends AbstractValueEncoder {
 
     protected static int IDENTITY_NUMBER = 0x4A953A81;
